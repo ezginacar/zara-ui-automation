@@ -1,17 +1,25 @@
 package pages;
 
 import com.epam.healenium.SelfHealingDriver;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import pageobjects.HomePageLocators;
 import utils.CommonHelper;
+import utils.ExcelUtils;
+import utils.WaitHelper;
+
+import java.io.IOException;
+
 import static utils.LoggingUtils.info;
 
 public class HomePage extends HomePageLocators {
     private SelfHealingDriver driver;
     private CommonHelper helper;
+    private ExcelUtils searchItems = new ExcelUtils("ZaraUITestDatas.xlsx");
+    private WaitHelper waitHelper;
 
-    public HomePage(SelfHealingDriver driver) {
+    public HomePage( SelfHealingDriver driver) throws IOException {
         this.driver = driver;
     }
 
@@ -37,12 +45,21 @@ public class HomePage extends HomePageLocators {
 
     public void validateTheCategoryIsSelected(String category) {
         By by = helper.createDynamicXpath(selectedCategoryOnTheNavXpath, category.toUpperCase());
-        Assert.assertTrue("Category '" + category + "' is NOT  selected on the navigation menu", helper.isElementDisplayed(by));
-    }
+        Assertions.assertTrue(helper.isElementDisplayed(by), "Category '" + category + "' is NOT selected on the navigation menu");    }
 
     public void goToGivenCategoryOnTheNavMenu(String category){
         clickToggleMenu().clickGivenCategoryOnTheNavMenu(category).validateTheCategoryIsSelected(category);
     }
+
+
+
+
+
+
+
+
+
+
 
 
 }

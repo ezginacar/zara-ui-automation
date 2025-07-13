@@ -1,7 +1,8 @@
 package pages;
 
 import com.epam.healenium.SelfHealingDriver;
-import org.junit.Assert;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.WebDriver;
 import pageobjects.LoginPageLocators;
 import utils.CommonHelper;
 
@@ -51,6 +52,6 @@ public class LoginPage extends LoginPageLocators {
     }
 
     public void validateLoginSuccess() {
-        Assert.assertTrue("Unsuccessfull login", helper.isElementDisplayed(userAccountLinkText));
+        Assertions.assertTrue(helper.isElementDisplayed(userAccountLinkText), "Unsuccessful login");
     }
 }

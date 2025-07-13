@@ -12,43 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelUtils {
-    private static Workbook getWorkbook(String fileName) throws IOException {
+    private Workbook workbook;
+
+    public ExcelUtils (String fileName) throws IOException {
         FileInputStream fis = new FileInputStream(Constants.FILE_PATH + fileName);
-        return new XSSFWorkbook(fis);
+        this.workbook = new XSSFWorkbook(fis);
     }
 
-    public static String getCellData(String fileName, String sheetName, int rowNum, int colNum) throws IOException {
-        try (Workbook workbook = getWorkbook(Constants.FILE_PATH + fileName)) {
-            Sheet sheet = workbook.getSheet(sheetName);
-            Row row = sheet.getRow(rowNum);
-            Cell cell = row.getCell(colNum);
-            return cell.toString();
-        }
-    }
 
-    public static List<String> getRowData(String fileName, String sheetName, int rowNum) throws IOException {
-        List<String> rowData = new ArrayList<>();
-        try (Workbook workbook = getWorkbook(Constants.FILE_PATH + fileName)) {
-            Sheet sheet = workbook.getSheet(sheetName);
-            Row row = sheet.getRow(rowNum);
-            for (Cell cell : row) {
-                rowData.add(cell.toString());
-            }
-        }
-        return rowData;
+    public String getCellData(String sheetName, int rowNum, int colNum) {
+        Sheet sheet = workbook.getSheet(sheetName);
+        Row row = sheet.getRow(rowNum);
+        Cell cell = row.getCell(colNum);
+        return cell.toString();
     }
+   /*
+    public static void main(String[] args) throws IOException {
+        ExcelUtils e = new ExcelUtils("ZaraUITestDatas.xlsx");
+        String keyword = e.getCellData( "SearchboxTest", 2, 2);
+        System.out.println("Deneme -->  " + keyword);
 
-    public static List<String> getColumnData(String fileName, String sheetName, int colNum) throws IOException {
-        List<String> colData = new ArrayList<>();
-        try (Workbook workbook = getWorkbook(Constants.FILE_PATH + fileName)) {
-            Sheet sheet = workbook.getSheet(sheetName);
-            for (Row row : sheet) {
-                Cell cell = row.getCell(colNum);
-                if (cell != null) {
-                    colData.add(cell.toString());
-                }
-            }
-        }
-        return colData;
     }
+    */
+
+
+
+
 }

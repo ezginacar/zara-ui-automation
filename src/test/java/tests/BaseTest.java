@@ -24,7 +24,7 @@ public class BaseTest {
 
     @AfterEach
     public void tearDown() {
-        DriverManager.quitDriver();
+      //  DriverManager
         info("Driver quit and resources cleaned up");
     }
 }

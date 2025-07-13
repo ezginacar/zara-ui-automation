@@ -85,6 +85,22 @@ public class CommonHelper {
         }
     }
 
+    public void pressKey(WebElement element, Keys key){
+        element.sendKeys(key);
+        info("Key pressed: " + key.name() + " on element: " + element.toString());
+    }
+
+    public String getAttribute(By locator, String attributeName) {
+        try {
+            WebElement element = waitHelper.waitForElementVisible(locator);
+            String attributeValue = element.getAttribute(attributeName);
+            info("Attribute '" + attributeName + "' retrieved from element '" + locator.toString() + "': " + attributeValue);
+            return attributeValue;
+        } catch (Exception e) {
+            throw new RuntimeException("Error retrieving attribute '" + attributeName + "' from element: " + locator.toString(), e);
+        }
+    }
+
 
 
 

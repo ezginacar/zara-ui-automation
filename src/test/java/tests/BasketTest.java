@@ -2,18 +2,16 @@ package tests;
 
 import com.epam.healenium.SelfHealingDriver;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.WebElement;
-import pageobjects.CommonPageLocators;
+import org.openqa.selenium.WebDriver;
 import pages.*;
 import utils.ConfigUtil;
 
 import utils.DriverManager;
-import utils.ExcelUtils;
 
-import java.io.FileWriter;
+
+
 import java.io.IOException;
-import java.util.List;
-import java.util.Random;
+
 
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 
@@ -28,7 +26,7 @@ public class BasketTest extends BaseTest{
     private BasketPage basketPage;
 
     @BeforeAll
-    public void setUpClass() {
+    public void setUpClass() throws IOException {
         driver = DriverManager.getDriver();
 
         homePage = new HomePage(driver);
@@ -52,6 +50,27 @@ public class BasketTest extends BaseTest{
         // Navigate: Menu -> Erkek->Tümünü Gör
         homePage.clickGivenCategoryOnTheNavMenu("ERKEK");
         commonPage.clickXpathWithText("TÜMÜNÜ GÖR");
+
+        // Search "şort"
+        commonPage.fillSearchInputFromExcel(1);
+        // Delete input than search "gömlek"
+        commonPage.fillSearchInputFromExcel(2);
+        //press enter
+        commonPage.pressEnterToSearching();
+        //
+        productListPage.typeTheFirstProductInfoToTheTextFile()
+                .addTheFirtProductOnTheSearchResuls();
+        // Navigate to the basket
+        basketPage.clickBasketLinkText();
+        // Validate that the product is added to the basket fro
+        basketPage.validateAddedProductNameFromTheTxt();
+        basketPage.validateAddedProductPriceFromTheTxt();
+       //increase the product quantity
+        basketPage.increaseTheProductQuantityInBasket();
+        // Validate that the product quantity is increased
+        basketPage.validateProductQuantityInBasket(2);
+
+
 
     }
 }
