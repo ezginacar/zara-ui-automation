@@ -1,0 +1,25 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Maven
+target/
+
+# Sistem ve temp dosyaları
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.class
+
+# VS Code (kullanıyorsan)
+.vscode/
+
+# Test verileri (gizlemek istiyorsan)
+*.xlsx
+*.csv
+*.txt
+
+# Windows
+Thumbs.db
