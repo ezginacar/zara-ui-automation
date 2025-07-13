@@ -1,6 +1,5 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import pageobjects.CommonPageLocators;
@@ -13,15 +12,18 @@ import java.io.IOException;
 import static utils.LoggingUtils.info;
 
 public class CommonPage extends CommonPageLocators {
-    private SelfHealingDriver driver;
+    private WebDriver  driver;
     private CommonHelper helper;
     private WaitHelper waitHelper;
-    private ExcelUtils searchItems = new ExcelUtils("ZaraUITestDatas.xlsx");
+    private ExcelUtils searchItems;
 
 
 
-    public CommonPage(SelfHealingDriver driver) throws IOException {
+    public CommonPage(WebDriver driver) throws IOException {
         this.driver = driver;
+        helper = new CommonHelper(driver);
+        waitHelper = new WaitHelper(driver);
+        searchItems = new ExcelUtils("ZaraUITestDatas.xlsx");
     }
 
     public CommonPage clickXpathWithText(String text) {
@@ -41,6 +43,15 @@ public class CommonPage extends CommonPageLocators {
         helper.pressKey(waitHelper.waitForElementVisible(searchInput), Keys.ENTER);
         info("Pressed Enter key to search");
         return this;
+    }
+
+    public void acceptCookiesIfExists(){
+        if (helper.isElementDisplayed(acceptCookiesButton)) {
+            helper.click(acceptCookiesButton);
+            info("Cookies accepted");
+        } else {
+            info("No cookies popup displayed");
+        }
     }
 
 

@@ -1,6 +1,5 @@
 package utils;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,11 +12,11 @@ import java.time.Duration;
 import static utils.LoggingUtils.info;
 
 public class WaitHelper {
-    private final SelfHealingDriver driver;
+    private final WebDriver driver;
     private final WebDriverWait wait;
 
-    public WaitHelper(SelfHealingDriver driver) {
-        this.driver = driver;
+    public WaitHelper(WebDriver driver) {
+        this.driver = DriverManager.getDriver();
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(Constants.DEFAULT_TIMEOUT_SECONDS));
     }
 

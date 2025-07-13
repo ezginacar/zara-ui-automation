@@ -1,6 +1,5 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import pageobjects.LoginPageLocators;
@@ -9,11 +8,12 @@ import utils.CommonHelper;
 import static utils.LoggingUtils.info;
 
 public class LoginPage extends LoginPageLocators {
-    private SelfHealingDriver driver;
+    private WebDriver driver;
     private CommonHelper helper;
 
-    public LoginPage(SelfHealingDriver driver) {
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
+        helper = new CommonHelper(driver);
     }
 
 

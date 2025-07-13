@@ -8,8 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class ExcelUtils {
     private Workbook workbook;
@@ -26,14 +25,7 @@ public class ExcelUtils {
         Cell cell = row.getCell(colNum);
         return cell.toString();
     }
-   /*
-    public static void main(String[] args) throws IOException {
-        ExcelUtils e = new ExcelUtils("ZaraUITestDatas.xlsx");
-        String keyword = e.getCellData( "SearchboxTest", 2, 2);
-        System.out.println("Deneme -->  " + keyword);
 
-    }
-    */
 
 
 

@@ -16,10 +16,6 @@ target/
 # VS Code (kullanıyorsan)
 .vscode/
 
-# Test verileri (gizlemek istiyorsan)
-*.xlsx
-*.csv
-*.txt
 
 # Windows
 Thumbs.db

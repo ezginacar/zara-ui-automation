@@ -1,36 +1,24 @@
 package utils;
 
-import com.epam.healenium.SelfHealingDriver;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverManager {
-    private static final ThreadLocal<SelfHealingDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static void initDriver() {
-        WebDriver webdriver;
         if (driver.get() == null) {
-            String browser = ConfigUtil.get("browser");
-            switch (browser.toLowerCase()) {
-                case "firefox":
-                    webdriver = new FirefoxDriver();
-                    break;
-                case "chrome":
-                    webdriver = new ChromeDriver();
-                    break;
-                default:
-                    webdriver = new ChromeDriver();
-                    break;
-            }
-            driver.set(SelfHealingDriver.create(webdriver));
-
+            WebDriverManager.chromedriver().driverVersion("138.0.0.0").setup();
+            WebDriver webDriver = new ChromeDriver();
+            driver.set(webDriver);
         }
     }
 
-    public static SelfHealingDriver getDriver() {
-        if(driver == null)
+    public static WebDriver getDriver() {
+        if (driver.get() == null) {
             initDriver();
+        }
         return driver.get();
     }
 

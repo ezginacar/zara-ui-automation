@@ -1,6 +1,5 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,13 +13,16 @@ import java.io.IOException;
 import static utils.LoggingUtils.info;
 
 public class HomePage extends HomePageLocators {
-    private SelfHealingDriver driver;
+    private WebDriver driver;
     private CommonHelper helper;
-    private ExcelUtils searchItems = new ExcelUtils("ZaraUITestDatas.xlsx");
+    private ExcelUtils searchItems;
     private WaitHelper waitHelper;
 
-    public HomePage( SelfHealingDriver driver) throws IOException {
+    public HomePage(WebDriver driver) throws IOException {
         this.driver = driver;
+        helper = new CommonHelper(driver);
+        searchItems =new ExcelUtils("ZaraUITestDatas.xlsx");
+        waitHelper = new WaitHelper(driver);
     }
 
     //home page actions

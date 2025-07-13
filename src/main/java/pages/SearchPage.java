@@ -1,14 +1,15 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
+import org.openqa.selenium.WebDriver;
 import utils.CommonHelper;
 
 public class SearchPage {
-    private SelfHealingDriver driver;
+    private WebDriver driver;
     private CommonHelper helper;
 
-    public SearchPage(SelfHealingDriver driver) {
+    public SearchPage(WebDriver driver) {
         this.driver = driver;
+        helper = new CommonHelper(driver);
     }
 
 }

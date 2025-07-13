@@ -1,20 +1,22 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
+import org.openqa.selenium.WebDriver;
 import pageobjects.ProductListPageLocators;
 import utils.CommonHelper;
+import utils.DriverManager;
 import utils.FileUtil;
 
 import static utils.LoggingUtils.info;
 
 public class ProductListPage extends ProductListPageLocators {
-    private SelfHealingDriver driver;
+    private WebDriver driver;
     private CommonHelper helper;
     private FileUtil addedProductsTxt;
 
-    public ProductListPage(SelfHealingDriver driver) {
-        this.driver = driver;
+    public ProductListPage(WebDriver driver) {
+        this.driver = DriverManager.getDriver();
         addedProductsTxt = new FileUtil("AddedProducts.txt");
+        helper = new CommonHelper(driver);
     }
 
     //product list page methods

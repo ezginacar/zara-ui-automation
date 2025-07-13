@@ -1,13 +1,17 @@
 package utils;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.openqa.selenium.*;
 
 import static utils.LoggingUtils.info;
 
 public class CommonHelper {
-    private SelfHealingDriver driver;
-    private WaitHelper waitHelper = new WaitHelper(driver);
+    private WebDriver driver;
+    private WaitHelper waitHelper ;
+
+    public CommonHelper(WebDriver driver) {
+        this.driver = DriverManager.getDriver();
+        this.waitHelper = new WaitHelper(driver);
+    }
 
     public void click(By locator) {
         for (int i = 0; i < Constants.RETRY_COUNT; i++) {

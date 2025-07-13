@@ -1,6 +1,5 @@
 package pages;
 
-import com.epam.healenium.SelfHealingDriver;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import pageobjects.BasketPageLocators;
@@ -11,13 +10,15 @@ import utils.FileUtil;
 import static utils.LoggingUtils.info;
 
 public class BasketPage extends BasketPageLocators {
-    private SelfHealingDriver driver;
+    private WebDriver  driver;
     private CommonHelper helper;
     private ActionsHelper actions;
     private FileUtil addedProductsTxt;
 
-    public BasketPage(SelfHealingDriver driver) {
+    public BasketPage(WebDriver  driver) {
         this.driver = driver;
+        helper = new CommonHelper(driver);
+        actions = new ActionsHelper(driver);
         addedProductsTxt = new FileUtil("AddedProducts.txt");
     }
 
@@ -70,7 +71,8 @@ public class BasketPage extends BasketPageLocators {
 
     public void validateProductQuantityInBasket(int expectedQuantity) {
         int actualQuantity = Integer.parseInt(helper.getAttribute(singleProductTotalAmount,"value"));
-        Assertions.assertEquals(expectedQuantity, actualQuantity, "Product quantity in the basket is not as expected");    }
+        Assertions.assertEquals(expectedQuantity, actualQuantity, "Product quantity in the basket is not as expected");
+    }
 
 
 
