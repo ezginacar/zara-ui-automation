@@ -54,5 +54,22 @@ public class CommonPage extends CommonPageLocators {
         }
     }
 
+    /**
+     * Takes a manual screenshot for debugging purposes
+     * @param screenshotName Custom name for the screenshot
+     * @return Path of the saved screenshot
+     */
+    public String takeScreenshot(String screenshotName) {
+        return helper.takeScreenshot(screenshotName);
+    }
+
+    /**
+     * Takes a screenshot and throws an exception with the screenshot path
+     * @param errorMessage Error message to include
+     * @param screenshotName Name for the screenshot
+     */
+    public void takeScreenshotAndFail(String errorMessage, String screenshotName) {
+        helper.takeScreenshotAndFail(errorMessage, screenshotName);
+    }
 
 }

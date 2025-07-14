@@ -34,7 +34,7 @@ public class HomePage extends HomePageLocators {
 
     public HomePage clickToggleMenu() {
         helper.click(toggleMenu);
-        info("Hemburger menu clicked");
+        info("Hamburger menu clicked");
         return this;
     }
 

@@ -16,7 +16,10 @@ public class LoggingUtils {
 
     public static void error(String message, Throwable throwable) {
         logger.error(message, throwable);
+    }
 
+    public static void error(String message) {
+        logger.error(message);
     }
 
 }

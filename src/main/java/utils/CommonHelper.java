@@ -73,8 +73,8 @@ public class CommonHelper {
         }
     }
 
-    public By createDynamicXpath(String locatorText, String replateItem) {
-        locatorText = String.format(locatorText, replateItem);
+    public By createDynamicXpath(String locatorText, String replaceItem) {
+        locatorText = String.format(locatorText, replaceItem);
         return By.xpath(locatorText);
     }
 
@@ -105,9 +105,26 @@ public class CommonHelper {
         }
     }
 
+    /**
+     * Takes a manual screenshot for debugging purposes
+     * @param screenshotName Custom name for the screenshot
+     * @return Path of the saved screenshot
+     */
+    public String takeScreenshot(String screenshotName) {
+        return ScreenshotUtils.takeManualScreenshot(driver, screenshotName);
+    }
 
-
-
+    /**
+     * Takes a screenshot and throws an exception with the screenshot path
+     * Useful for debugging failed assertions
+     * @param errorMessage Error message to include
+     * @param screenshotName Name for the screenshot
+     */
+    public void takeScreenshotAndFail(String errorMessage, String screenshotName) {
+        String screenshotPath = takeScreenshot(screenshotName);
+        String fullMessage = errorMessage + (screenshotPath != null ? " (Screenshot: " + screenshotPath + ")" : "");
+        throw new AssertionError(fullMessage);
+    }
 
 }
 
