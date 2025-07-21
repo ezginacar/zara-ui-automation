@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Database for Healenium
+  postgres-db:
+    image: postgres:13-alpine
+    container_name: healenium-postgres
+    restart: always
+    environment:
+      - POSTGRES_DB=healenium
+      - POSTGRES_USER=healenium_user
+      - POSTGRES_PASSWORD=YourStrongPassword123
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - healenium-network
+
+  # Healenium Backend Service
+  healenium-hlm-backend:
+    image: healenium/hlm-backend:3.4.5
+    container_name: healenium-backend
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/healenium
+      - SPRING_DATASOURCE_USERNAME=healenium_user
+      - SPRING_DATASOURCE_PASSWORD=YourStrongPassword123
+      - HLM_SERVER_URL=http://healenium-hlm-proxy:8085
+    ports:
+      - "7878:7878"
+    networks:
+      - healenium-network
+    depends_on:
+      - postgres-db
+
+  # Healenium Proxy Service
+  healenium-hlm-proxy:
+    image: healenium/hlm-proxy:1.4.3
+    container_name: healenium-proxy
+    restart: always
+    environment:
+      - HLM_BACKEND_URL=http://healenium-hlm-backend:7878
+      - HLM_LOG_LEVEL=info
+    ports:
+      - "8085:8085"
+    networks:
+      - healenium-network
+    depends_on:
+      - healenium-hlm-backend
+
+  # Healenium Selector Inspector (Optional - for debugging)
+  healenium-selector-inspector:
+    image: healenium/hlm-selector-inspector:1.2
+    container_name: healenium-selector-inspector
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/healenium
+      - SPRING_DATASOURCE_USERNAME=healenium_user
+      - SPRING_DATASOURCE_PASSWORD=YourStrongPassword123
+    ports:
+      - "8080:8080"
+    networks:
+      - healenium-network
+    depends_on:
+      - postgres-db
+
+networks:
+  healenium-network:
+    driver: bridge
+
+volumes:
+  postgres-data: 

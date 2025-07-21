@@ -31,4 +31,18 @@ public class ConfigUtil {
             throw new RuntimeException("Error retrieving key from config: " + key, e);
         }
     }
+
+    /**
+     * Get config value with default fallback
+     * @param key Config key
+     * @param defaultValue Default value if key not found
+     * @return Config value or default value
+     */
+    public static String get(String key, String defaultValue) {
+        try {
+            return get(key);
+        } catch (Exception e) {
+            return defaultValue;
+        }
+    }
 }

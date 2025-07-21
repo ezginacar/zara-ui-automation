@@ -27,13 +27,15 @@ public class BaseTest {
     @BeforeEach
     public void setUp() throws IOException {
         info("Initializing driver and navigating to base URL");
-        driver= DriverManager.getDriver();
-        driver.manage().window().maximize();
+        
+        // Initialize driver
+        driver = DriverManager.getDriver();
+        
         driver.get(ConfigUtil.get("baseUrl"));
         info("Navigated to base Url: " + ConfigUtil.get("baseUrl"));
+        
         commonPage = new CommonPage(driver);
         commonPage.acceptCookiesIfExists();
-
     }
 
     @AfterEach
