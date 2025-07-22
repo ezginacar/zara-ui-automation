@@ -26,11 +26,7 @@ public class CommonPage extends CommonPageLocators {
         searchItems = new ExcelUtils("ZaraUITestDatas.xlsx");
     }
 
-    public CommonPage clickXpathWithText(String text) {
-        helper.click(helper.createDynamicXpath(getElementWithTextXpath, text));
-        info("Clicked on element with text: " + text);
-        return this;
-    }
+
 
     public CommonPage fillSearchInputFromExcel(int index) {
         String searchText = searchItems.getCellData("SearchboxTest", index, 2);
@@ -71,5 +67,12 @@ public class CommonPage extends CommonPageLocators {
     public void takeScreenshotAndFail(String errorMessage, String screenshotName) {
         helper.takeScreenshotAndFail(errorMessage, screenshotName);
     }
+
+    public CommonPage clickSearchIcon() {
+        helper.click(searchIcon);
+        info("Search icon clicked");
+        return this;
+    }
+
 
 }
