@@ -1,6 +1,5 @@
 package utils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -8,9 +7,12 @@ public class ConfigUtil {
     private static final Properties props = new Properties();
 
     static {
-        try (var fis = new FileInputStream(Constants.FILE_PATH + "config.properties"))
+        try (var inputStream = ConfigUtil.class.getClassLoader().getResourceAsStream("config.properties"))
         {
-            props.load(fis);
+            if (inputStream == null) {
+                throw new RuntimeException("config.properties not found in classpath!");
+            }
+            props.load(inputStream);
         } catch (IOException e) {
             throw new RuntimeException("Config file not found!", e);
         } finally {

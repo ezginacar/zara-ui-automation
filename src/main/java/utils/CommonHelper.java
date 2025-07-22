@@ -9,16 +9,18 @@ public class CommonHelper {
     private WaitHelper waitHelper ;
 
     public CommonHelper(WebDriver driver) {
-        this.driver = DriverManager.getDriver();
+        this.driver = driver;
         this.waitHelper = new WaitHelper(driver);
     }
 
     public void click(By locator) {
         for (int i = 0; i < Constants.RETRY_COUNT; i++) {
             try {
-                WebElement element = driver.findElement(locator);
-                element.click();
+                waitHelper.waitForElementClickable(locator)
+                .click();
+                break;
             } catch (Exception e) {
+                info("Retry " + (i + 1) + " failed for locator: " + locator + " due to: " + e.getMessage());
                 try {
                     Thread.sleep(Constants.RETRY_INTERVAL_MS);
                 } catch (InterruptedException ignored) {}
@@ -39,16 +41,22 @@ public class CommonHelper {
 
     public void sendKeys(By locator, String text) {
         try {
-            WebElement element =  waitHelper.waitForElementClickable(locator);
+            WebElement element = waitHelper.waitForElementClickable(locator);
 
             if (element.isDisplayed() && element.isEnabled()) {
                 try {
                     element.click();
                 } catch (Exception e) {
-                    // Some inputs are not clickable but can be typed.
+
                 }
 
-                element.clear();
+                // clear input-> Double click + DELETE
+                org.openqa.selenium.interactions.Actions actions = new org.openqa.selenium.interactions.Actions(driver);
+                actions.doubleClick(element).perform();
+                element.sendKeys(Keys.DELETE);
+                info("Element cleared before sending keys: " + locator.toString());
+
+                // new text
                 element.sendKeys(text);
             } else {
                 throw new RuntimeException("The element is visible but inactive: " + locator.toString());

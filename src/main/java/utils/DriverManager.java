@@ -20,6 +20,7 @@ public class DriverManager {
         }
         return driverThread.get();
     }
+    
 
     private static void setDriver(WebDriver driver){
         driverThread.set(driver);
@@ -75,4 +76,14 @@ public class DriverManager {
             driverThread.remove();
         }
     }
+
+     /**
+     * Get current driver without creating a new one
+     * Used by ScreenshotExtension to avoid multiple driver creation
+     * @return existing driver or null
+     */
+    public static WebDriver getCurrentDriverWithoutCreating(){
+        return driverThread.get(); // Returns null if no driver exists
+    }
+    
 }
