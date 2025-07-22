@@ -9,6 +9,7 @@ public class HomePageLocators {
 
     protected String categoryOnTheNavXpath = "//nav//*[@class='layout-categories-category__name' and normalize-space(text())='%s']";
     protected String selectedCategoryOnTheNavXpath = "//a[@aria-expanded='true']/span[normalize-space(text())='%s']";
+    protected String subCategoriesOnTheNewCollectionXpath = "//li[contains(@class,'expanded layout-categories-category--highlighted')]//span[normalize-space(text())='%s']";
 
 
 

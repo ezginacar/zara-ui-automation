@@ -14,9 +14,7 @@ public class Constants {
     public static final String SCREENSHOT_DATE_FORMAT = "yyyy-MM-dd_HH-mm-ss";
     public static final int SCREENSHOT_CLEANUP_DAYS = 7;
     
-    // Test Configuration
-    public static final String TEST_DATA_FILE = "ZaraUITestDatas.xlsx";
+
     
-    // Browser Configuration
-    public static final String DEFAULT_BROWSER = "Chrome";
+
 }

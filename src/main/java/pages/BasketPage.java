@@ -6,6 +6,7 @@ import pageobjects.BasketPageLocators;
 import utils.ActionsHelper;
 import utils.CommonHelper;
 import utils.FileUtil;
+import utils.WaitHelper;
 
 import static utils.LoggingUtils.info;
 
@@ -45,7 +46,6 @@ public class BasketPage extends BasketPageLocators {
 
     public BasketPage clickBasketLinkText() {
         helper.click(basketLinkText);
-        info("Basket link text clicked");
         return this;
     }
 
@@ -64,9 +64,36 @@ public class BasketPage extends BasketPageLocators {
     }
 
     public BasketPage increaseTheProductQuantityInBasket() {
+        // Get current quantity before clicking
+        int currentQuantity = Integer.parseInt(helper.getAttribute(singleProductTotalAmount, "value"));
+        info("Current quantity before increase: " + currentQuantity);
+        
+        // Click increase button with proper wait
+        WaitHelper waitHelper = new WaitHelper(driver);
+        waitHelper.waitForElementClickable(singleProductIncreaseButton);
         helper.click(singleProductIncreaseButton);
-        info("Cliced on the increase button of the product in the basket");
-        return null;
+        info("Clicked on the increase button of the product in the basket");
+        
+        // Wait for quantity to actually increase
+        int expectedQuantity = currentQuantity + 1;
+        try {
+            // Wait up to 5 seconds for quantity to update
+            for (int i = 0; i < 10; i++) {
+                Thread.sleep(500);
+                int newQuantity = Integer.parseInt(helper.getAttribute(singleProductTotalAmount, "value"));
+                if (newQuantity == expectedQuantity) {
+                    info("Quantity successfully increased from " + currentQuantity + " to " + newQuantity);
+                    break;
+                }
+                if (i == 9) {
+                    info("Warning: Quantity did not increase as expected. Current: " + newQuantity + ", Expected: " + expectedQuantity);
+                }
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        
+        return this;
     }
 
     public void validateProductQuantityInBasket(int expectedQuantity) {

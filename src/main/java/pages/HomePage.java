@@ -53,6 +53,13 @@ public class HomePage extends HomePageLocators {
         clickToggleMenu().clickGivenCategoryOnTheNavMenu(category).validateTheCategoryIsSelected(category);
     }
 
+    public void clickSubcategoryOnTheNewCollectionList(String category){
+        By by = helper.createDynamicXpath(subCategoriesOnTheNewCollectionXpath, category);
+        helper.click(by);
+        info("Subcategory: '" + category + "' clicked on the new collection list");
+    }
+
+
 
 
 

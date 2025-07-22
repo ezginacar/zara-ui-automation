@@ -20,7 +20,6 @@
     <log4j.version>2.20.0</log4j.version>
     <junit.version>5.10.0</junit.version>
     <mvn-surefire.version>3.2.5</mvn-surefire.version>
-    <wdm.version>6.1.0</wdm.version>
   </properties>
 
 
@@ -63,11 +62,6 @@
       <version>${junit.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>io.github.bonigarcia</groupId>
-      <artifactId>webdrivermanager</artifactId>
-      <version>${wdm.version}</version>
-    </dependency>
 
   </dependencies>
 
